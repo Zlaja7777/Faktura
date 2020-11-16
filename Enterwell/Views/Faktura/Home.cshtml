@@ -1,0 +1,42 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Enterwell.ViewModels;
+@inject SignInManager<IdentityUser> SignInManager
+@model List<FakturaVM>
+@{
+    ViewData["Title"] = "Home";
+}
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+
+    <a class="btn btn-info" href="/Faktura/AddForm" style="color: white">Dodaj fakturu</a>
+    <br />
+    <br />
+    <table class="table table-bordered">
+        <tr>
+            <th>Broj fakture</th>
+            <th>Datum stvaranja fakture</th>
+            <th>Datum dospijeca fakture</th>
+            <th>Naziv primatelja racuna</th>
+            <th>Detalji</th>
+        </tr>
+
+        @foreach (var i in Model)
+        {
+            <tr>
+                <td>@i.brojFakture</td>
+                <td>@i.datumStvaranjaFakture</td>
+                <td>@i.datumDospijecaFakture</td>
+                <td>@i.primateljRacuna</td>
+                <td><a class="btn btn-success" style="color: white" href="/Faktura/FakturaDetails?id=@i.fakturaID">Detalji</a></td>
+            </tr>
+        }
+
+    </table>
+}
+else
+{
+    <h1>Log in</h1>
+}
+

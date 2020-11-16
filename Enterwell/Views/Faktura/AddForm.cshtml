@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewData["Title"] = "AddForm";
+}
+@using Enterwell.ViewModels;
+
+@model FakturaVM
+    <form asp-action="Save" method="post" class="form">
+        Broj fakture
+        <div class="form-group">
+            <input asp-for="brojFakture" placeholder="Broj fakture" type="number" />
+        </div>
+
+        Datum stvaranja fakture
+        <div class="form-group">
+
+            <input asp-for="datumStvaranjaFakture" type="date" />
+        </div>
+
+        Datum dospijeca fakture
+        <div class="form-group">
+
+            <input asp-for="datumDospijecaFakture" type="date" />
+        </div>
+        <div class="form-group">
+
+
+            <input asp-for="primateljRacuna" placeholder="Primatelj racuna" />
+        </div>
+
+        <input type="submit" value="Dodaj fakturu" class="btn btn-success" style="background-color:#2b731e; color: #FAFAFA " />
+    </form>

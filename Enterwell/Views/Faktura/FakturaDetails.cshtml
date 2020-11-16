@@ -1,0 +1,66 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Enterwell.ViewModels;
+@inject SignInManager<IdentityUser> SignInManager
+@model FakturaVM
+@{
+    ViewData["Title"] = "Home";
+    List<FakturaStavkaVM> fm = (List<FakturaStavkaVM>)ViewData["stavke"];
+}
+
+<a class="btn btn-info" href="/Faktura/Index">Home</a>
+<br />
+<br />
+@if (SignInManager.IsSignedIn(User))
+{
+
+    <h4>Broj fakture: @Model.brojFakture</h4>
+    <h4>Datum stvaranja: @Model.datumStvaranjaFakture.ToShortDateString()</h4>
+    <h4>Datum dospijeca: @Model.datumDospijecaFakture.ToShortDateString()</h4>
+    if (Model.cijenaBezPoreza > 0)
+    {
+        <h4>Cijena bez poreza: @Model.cijenaBezPoreza</h4>
+        <h4>Cijena sa porezom: @Model.cijenaSaPorezom</h4>
+
+    }
+    <h4>Primatelj racuna: @Model.primateljRacuna</h4>
+    if (Model.cijenaBezPoreza == 0)
+    {
+        <a class="btn btn-info" href="/FakturaStavka/AddForm?fakturaID=@Model.fakturaID" style="float: right">Dodaj stavku</a>
+        <a class="btn btn-info" href="/Faktura/Update?fakturaID=@Model.fakturaID" style="float: left">Izdaj racun</a>
+    }
+    else
+    {
+        <h3  style="text-align: center">Faktura je izdata</h3>
+
+    }
+    <br />
+    <br />
+
+
+    <table class="table table-bordered">
+        <tr>
+            <th>Opis prodane stavke</th>
+            <th>Kolicina prodane stavke</th>
+            <th>Jedinicna cijena stavke bez poreza</th>
+            <th>Ukupna cijena za stavku bez poreza</th>
+        </tr>
+
+
+        @foreach (var i in fm)
+        {
+            <tr>
+                <td>@i.opisProdaneStavke</td>
+                <td>@i.kolicinaProdaneStavke</td>
+                <td>@i.jedinicnaCijenaStavkeBezPoreza</td>
+                <td>@i.ukupnaCijenaZaStavkuBezPoreza</td>
+            </tr>
+        }
+
+
+    </table>
+}
+else
+{
+    <h1>Log in</h1>
+}
+
